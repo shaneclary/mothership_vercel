@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  outputFileTracingRoot: "C:\\Users\\shane\\OneDrive\\Documents\\GitHub\\eatmothership\\eatmothership.co",
-
   images: {
     remotePatterns: [
       {
@@ -10,10 +8,6 @@ const nextConfig: NextConfig = {
         hostname: 'images.unsplash.com',
       },
     ],
-  },
-
-  experimental: {
-    allowedDevOrigins: ['http://192.168.1.9:3456'],
   },
 
   eslint: {
