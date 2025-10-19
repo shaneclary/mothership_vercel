@@ -33,7 +33,7 @@ export type Challenge = {
   start_date?: string
   end_date?: string
   is_active: boolean
-  requirements?: any
+  requirements?: Record<string, unknown>
   created_at: string
 }
 
@@ -41,7 +41,7 @@ export type UserChallengeProgress = {
   id: string
   user_id: string
   challenge_id: string
-  progress?: any
+  progress?: Record<string, unknown>
   completed: boolean
   completed_at?: string
 }
