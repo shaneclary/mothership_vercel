@@ -1,13 +1,33 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, Heart, Flame, Truck, Star, CheckCircle, Sparkles } from 'lucide-react'
-import { mockMeals, mockTestimonials } from '@/lib/mock-data'
+import { mockMealPackages, mockTestimonials } from '@/lib/mock-data'
 import { formatPrice } from '@/lib/utils'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import QuantitySelector from '@/components/quantity-selector'
+import { useCart } from '@/context/CartContext'
+import { useState } from 'react'
 
 export default function HomePage() {
-  const featuredMeals = mockMeals.slice(0, 3)
+  const featuredPackages = mockMealPackages.slice(0, 3) // Top 3 packages
+  const [quantities, setQuantities] = useState<Record<string, number>>({})
+  const { addToCart } = useCart()
+
+  const handleQuantityChange = (packageId: string, quantity: number) => {
+    setQuantities(prev => ({ ...prev, [packageId]: quantity }))
+  }
+
+  const handleAddToCart = (pkg: any) => {
+    const quantity = quantities[pkg.id] || 0
+    if (quantity > 0) {
+      addToCart(pkg, quantity)
+      // Reset quantity after adding to cart
+      setQuantities(prev => ({ ...prev, [pkg.id]: 0 }))
+    }
+  }
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFFBF5' }}>
@@ -184,59 +204,106 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured Meals Section - Enhanced cards with hover zoom */}
+      {/* Featured Packages Section - Enhanced cards with quantity selectors */}
       <section className="px-4 py-20 relative">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="mb-4 text-5xl font-bold text-sage-green font-cedarville">
-              Featured Meals
+              Featured Meal Packages
             </h2>
             <p className="text-gray-700 text-lg max-w-2xl mx-auto">
-              Nourishing recipes crafted with love and ancient wisdom
+              Choose from our most popular packages - crafted with love and ancient wisdom
             </p>
           </div>
 
           {/* Grid layout for better responsive design */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredMeals.map((meal, index) => (
+            {featuredPackages.map((pkg, index) => (
               <div
-                key={meal.id}
+                key={pkg.id}
                 className="group overflow-hidden rounded-3xl backdrop-blur-xl bg-white/90 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-white/20"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Image with zoom effect */}
                 <div className="relative h-64 w-full overflow-hidden">
                   <Image
-                    src={meal.image}
-                    alt={meal.name}
+                    src={pkg.image}
+                    alt={pkg.name}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                  {/* Category badge */}
+                  {/* Duration badge */}
                   <div className="absolute top-4 right-4">
                     <span className="backdrop-blur-xl bg-white/90 rounded-full px-4 py-2 text-sm font-semibold text-sage-green shadow-lg capitalize">
-                      {meal.category}
+                      {pkg.duration}
                     </span>
                   </div>
+
+                  {/* Savings badge */}
+                  {pkg.originalPrice && (
+                    <div className="absolute top-4 left-4">
+                      <span className="backdrop-blur-xl bg-sage-green/90 rounded-full px-4 py-2 text-sm font-semibold text-white shadow-lg">
+                        Save {Math.round((1 - pkg.price / pkg.originalPrice) * 100)}%
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-6 space-y-4">
-                  <h3 className="text-2xl font-bold text-charcoal group-hover:text-sage-green transition-colors">
-                    {meal.name}
-                  </h3>
+                  <div>
+                    <h3 className="text-2xl font-bold text-charcoal group-hover:text-sage-green transition-colors">
+                      {pkg.name}
+                    </h3>
+                    <p className="text-sm text-sage-600 font-semibold mt-1">
+                      {pkg.mealCount} meals
+                    </p>
+                  </div>
                   <p className="text-gray-700 line-clamp-2 leading-relaxed">
-                    {meal.description}
+                    {pkg.description}
                   </p>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                    <span className="text-3xl font-bold text-sage-green">
-                      {formatPrice(meal.price)}
-                    </span>
-                    <button className="rounded-full bg-gradient-to-r from-sage-green to-sage-700 px-6 py-2 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200">
-                      Add to Cart
-                    </button>
+                  {/* Benefits list */}
+                  <div className="flex flex-wrap gap-2">
+                    {pkg.benefits.slice(0, 2).map((benefit, i) => (
+                      <span key={i} className="text-xs bg-sage-50 text-sage-700 px-3 py-1 rounded-full">
+                        {benefit}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="pt-4 border-t border-gray-100 space-y-4">
+                    <div className="flex items-baseline justify-between">
+                      <div>
+                        <span className="text-3xl font-bold text-sage-green">
+                          {formatPrice(pkg.price)}
+                        </span>
+                        {pkg.originalPrice && (
+                          <span className="ml-2 text-lg text-gray-400 line-through">
+                            {formatPrice(pkg.originalPrice)}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Quantity Selector */}
+                    <div className="flex items-center gap-3">
+                      <QuantitySelector
+                        quantity={quantities[pkg.id] || 0}
+                        onQuantityChange={(qty) => handleQuantityChange(pkg.id, qty)}
+                        min={0}
+                        max={10}
+                        className="flex-1"
+                      />
+                      <button
+                        onClick={() => handleAddToCart(pkg)}
+                        disabled={!quantities[pkg.id] || quantities[pkg.id] === 0}
+                        className="rounded-full bg-gradient-to-r from-sage-green to-sage-700 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                      >
+                        Add
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -245,10 +312,10 @@ export default function HomePage() {
 
           <div className="mt-12 text-center">
             <Link
-              href="/meals"
+              href="/packages"
               className="inline-flex items-center gap-2 rounded-full border-2 border-sage-green px-10 py-4 font-semibold text-sage-green hover:bg-sage-green hover:text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
             >
-              View All Meals
+              View All Packages
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
