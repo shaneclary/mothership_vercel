@@ -1,0 +1,200 @@
+{
+  "triggers": [
+    {
+      "id": "order",
+      "category": "self_care",
+      "label": "Place an order",
+      "points": 1,
+      "perDollar": true,
+      "cooldown": 0,
+      "description": "Earn through acts of care"
+    },
+    {
+      "id": "first_order",
+      "category": "self_care",
+      "label": "First order bonus",
+      "points": 200,
+      "once": true,
+      "description": "Welcome to the Nourishment Circle"
+    },
+    {
+      "id": "complete_profile",
+      "category": "self_care",
+      "label": "Complete your profile",
+      "points": 100,
+      "once": true,
+      "description": "Help us know how to support you"
+    },
+    {
+      "id": "try_new_meal",
+      "category": "self_care",
+      "label": "Try a new meal",
+      "points": 25,
+      "cooldown": 0,
+      "description": "Explore nourishment"
+    },
+    {
+      "id": "golden_hour_order",
+      "category": "self_care",
+      "label": "Order during golden hour (2-4am)",
+      "points": 0,
+      "multiplier": 2,
+      "description": "We see you, night mama"
+    },
+    {
+      "id": "recurring_subscription",
+      "category": "self_care",
+      "label": "Subscribe to recurring deliveries",
+      "points": 500,
+      "once": true,
+      "description": "Consistent care for you"
+    },
+    {
+      "id": "referral_complete",
+      "category": "community",
+      "label": "Refer a friend (who orders)",
+      "points": 500,
+      "cooldown": 0,
+      "proofRequired": false,
+      "description": "Share the circle of care"
+    },
+    {
+      "id": "welcome_new_mama",
+      "category": "community",
+      "label": "Welcome a new mama",
+      "points": 25,
+      "cooldown": 0,
+      "description": "Your kindness ripples outward"
+    },
+    {
+      "id": "share_story",
+      "category": "community",
+      "label": "Share your story",
+      "points": 100,
+      "proofRequired": true,
+      "description": "Your journey matters"
+    },
+    {
+      "id": "post_meal_photo",
+      "category": "community",
+      "label": "Post meal photo/review",
+      "points": 50,
+      "cooldown": 1,
+      "description": "Inspire others"
+    },
+    {
+      "id": "reply_to_post",
+      "category": "community",
+      "label": "Reply to another mama's post",
+      "points": 15,
+      "cooldown": 0,
+      "maxPerDay": 10,
+      "description": "Build connection"
+    },
+    {
+      "id": "host_meetup",
+      "category": "community",
+      "label": "Host virtual meetup",
+      "points": 200,
+      "proofRequired": true,
+      "description": "Gather the circle"
+    },
+    {
+      "id": "attend_workshop",
+      "category": "growth",
+      "label": "Attend workshop",
+      "points": 150,
+      "proofRequired": false,
+      "description": "Growth recognized"
+    },
+    {
+      "id": "complete_module",
+      "category": "growth",
+      "label": "Complete educational module",
+      "points": 75,
+      "cooldown": 0,
+      "description": "Wisdom gained"
+    },
+    {
+      "id": "watch_workshop_replay",
+      "category": "growth",
+      "label": "Watch workshop replay",
+      "points": 50,
+      "cooldown": 0,
+      "description": "Learning at your pace"
+    },
+    {
+      "id": "take_quiz",
+      "category": "growth",
+      "label": "Take nutrition quiz",
+      "points": 100,
+      "cooldown": 7,
+      "description": "Test your knowledge"
+    },
+    {
+      "id": "ask_expert",
+      "category": "growth",
+      "label": "Ask expert a question",
+      "points": 25,
+      "cooldown": 1,
+      "description": "Seek guidance"
+    },
+    {
+      "id": "social_share",
+      "category": "spread_word",
+      "label": "Share on social media",
+      "points": 50,
+      "proofRequired": true,
+      "cooldownDays": 7,
+      "description": "Spread the love"
+    },
+    {
+      "id": "google_review",
+      "category": "spread_word",
+      "label": "Write Google/Yelp review",
+      "points": 150,
+      "proofRequired": true,
+      "once": true,
+      "description": "Your voice amplifies ours"
+    },
+    {
+      "id": "instagram_story",
+      "category": "spread_word",
+      "label": "Tag us in Instagram story",
+      "points": 40,
+      "proofRequired": true,
+      "cooldownDays": 7,
+      "description": "Share your moment"
+    },
+    {
+      "id": "user_content_featured",
+      "category": "spread_word",
+      "label": "Create featured content",
+      "points": 300,
+      "proofRequired": true,
+      "description": "Your creativity shines"
+    }
+  ],
+  "categories": {
+    "self_care": {
+      "name": "Self-Care & Nourishment",
+      "emoji": "🤱",
+      "description": "Earn through acts of care"
+    },
+    "community": {
+      "name": "Community Connection",
+      "emoji": "💬",
+      "description": "Your care ripples outward"
+    },
+    "growth": {
+      "name": "Learning & Growth",
+      "emoji": "📚",
+      "description": "Wisdom unfolds"
+    },
+    "spread_word": {
+      "name": "Spread the Word",
+      "emoji": "📢",
+      "description": "Amplify the circle"
+    }
+  }
+}
