@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, Heart, Flame, Truck, Star, CheckCircle, Sparkles } from 'lucide-react'
-import { mockMealPackages, mockTestimonials } from '@/lib/mock-data'
+import { mockMealPackages, mockTestimonials, MealPackage } from '@/lib/mock-data'
 import { formatPrice } from '@/lib/utils'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
@@ -20,7 +20,7 @@ export default function HomePage() {
     setQuantities(prev => ({ ...prev, [packageId]: quantity }))
   }
 
-  const handleAddToCart = (pkg: any) => {
+  const handleAddToCart = (pkg: MealPackage) => {
     const quantity = quantities[pkg.id] || 0
     if (quantity > 0) {
       addToCart(pkg, quantity)
