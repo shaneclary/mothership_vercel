@@ -96,14 +96,14 @@ export default function PerksPage() {
         ...defaults,
         particleCount: 30,
         scalar: 1.2,
-        shapes: ['heart']
+        shapes: ['star']
       })
 
       confetti({
         ...defaults,
         particleCount: 20,
         scalar: 0.75,
-        shapes: ['heart']
+        shapes: ['star']
       })
     }
 
