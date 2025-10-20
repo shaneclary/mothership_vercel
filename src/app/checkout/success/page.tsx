@@ -34,9 +34,10 @@ export default function CheckoutSuccessPage() {
     setOrderData(parsedOrderData)
 
     // If this was a subscription purchase, update user state
-    if (parsedOrderData.subscription) {
+    if (parsedOrderData.subscription && user.email) {
       setUser({
         ...user,
+        email: user.email,
         isMember: true,
         isSubscribed: true,
         subscription: {
