@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Parisienne, Cormorant_Garamond, Raleway } from 'next/font/google'
+import { Inter, Parisienne, Cormorant_Garamond, Raleway, Poppins } from 'next/font/google'
 import './globals.css'
 import { CartProvider } from '@/context/CartContext'
 import { AuthProvider } from '@/context/AuthContext'
@@ -28,6 +28,13 @@ const raleway = Raleway({
   subsets: ['latin'],
   weight: ['300', '400'],
   variable: '--font-raleway',
+  display: 'swap',
+})
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-poppins',
   display: 'swap',
 })
 
@@ -88,7 +95,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${parisienne.variable} ${cormorant.variable} ${raleway.variable}`}>
+    <html lang="en" className={`${inter.variable} ${parisienne.variable} ${cormorant.variable} ${raleway.variable} ${poppins.variable}`}>
       <body className={`${inter.className} antialiased`}>
         <AuthProvider>
           <CartProvider>

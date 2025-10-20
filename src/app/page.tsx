@@ -48,8 +48,20 @@ export default function HomePage() {
         </div>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl text-charcoal leading-relaxed max-w-2xl mb-10 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-          Wholesome frozen meals inspired by ancient postpartum care — delivered to your door
+        <p
+          className="font-normal uppercase text-center max-w-2xl mb-10 animate-fade-in-up"
+          style={{
+            animationDelay: '200ms',
+            fontFamily: 'Poppins, sans-serif',
+            fontWeight: 400,
+            letterSpacing: '0.15em',
+            lineHeight: 1.2,
+            fontSize: '0.9rem',
+            color: '#A8B99C',
+            textRendering: 'optimizeLegibility'
+          }}
+        >
+          Nourishment for the Fourth Trimester
         </p>
 
         {/* Buttons */}
