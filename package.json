@@ -19,6 +19,7 @@
     "@radix-ui/react-toast": "^1.2.15",
     "@stripe/stripe-js": "^8.1.0",
     "@supabase/supabase-js": "^2.75.1",
+    "@vercel/speed-insights": "^1.2.0",
     "canvas-confetti": "^1.9.3",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",

@@ -41,13 +41,16 @@ export default function CheckoutSuccessPage() {
         isMember: true,
         isSubscribed: true,
         subscription: {
-          plan: parsedOrderData.subscription.subscriptionTier,
           status: 'active',
-          nextBillingDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric'
-          })
+          nextDelivery: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', {
+            weekday: 'long',
+            month: 'short',
+            day: 'numeric'
+          }),
+          mealPlanSize: parsedOrderData.subscription.mealPlanSize || 12,
+          totalSavings: 0,
+          orders: 1,
+          dayStreak: 1
         }
       })
     }
