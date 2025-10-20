@@ -30,6 +30,11 @@ interface AppState {
       plan?: string
       status?: string
       nextBillingDate?: string
+      nextDelivery?: string
+      mealPlanSize?: number
+      totalSavings?: number
+      orders?: number
+      dayStreak?: number
     }
   } | null
   setUser: (user: AppState['user']) => void
