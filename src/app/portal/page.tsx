@@ -21,7 +21,7 @@ export default function PortalPage() {
 
         <PortalNav />
 
-        <main className="flex-1 p-8 relative z-10">
+        <main className="flex-1 md:p-8 p-4 pt-20 md:pt-8 relative z-10">
           {/* Welcome Section */}
           <div className="mb-8 animate-fade-in-up">
             <h1 className="text-5xl font-bold text-sage-green mb-3 font-cedarville">

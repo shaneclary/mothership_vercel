@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { Home, CreditCard, ShoppingBag, MessageCircle, HelpCircle, LogOut, Calendar, Gift, BookOpen, Settings, Award, Mail } from 'lucide-react'
 import { useAppStore } from '@/lib/store'
 import { useRouter } from 'next/navigation'
+import PortalMobileNav from './PortalMobileNav'
 
 const navItems = [
   { href: '/portal', label: 'Dashboard', icon: Home },
@@ -38,52 +39,58 @@ export default function PortalNav() {
   }
 
   return (
-    <nav className="backdrop-blur-xl bg-white/90 border-r border-sage-green/10 w-64 min-h-screen p-6 shadow-xl">
-      <div className="mb-8">
-        <Link href="/" className="flex items-center group">
-          <div className="h-10 w-auto relative transition-transform duration-300 group-hover:scale-105">
-            <Image
-              src="/logo/brandmark.png"
-              alt="Mothership"
-              width={160}
-              height={40}
-              className="object-contain"
-            />
-          </div>
-        </Link>
-      </div>
+    <>
+      {/* Desktop Sidebar - Hidden on Mobile */}
+      <nav className="hidden md:block backdrop-blur-xl bg-white/90 border-r border-sage-green/10 w-64 min-h-screen p-6 shadow-xl">
+        <div className="mb-8">
+          <Link href="/" className="flex items-center group">
+            <div className="h-10 w-auto relative transition-transform duration-300 group-hover:scale-105">
+              <Image
+                src="/logo/brandmark.png"
+                alt="Mothership"
+                width={160}
+                height={40}
+                className="object-contain"
+              />
+            </div>
+          </Link>
+        </div>
 
-      <div className="space-y-2">
-        {navItems.map((item) => {
-          const Icon = item.icon
-          const isActive = pathname === item.href
+        <div className="space-y-2">
+          {navItems.map((item) => {
+            const Icon = item.icon
+            const isActive = pathname === item.href
 
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
-                isActive
-                  ? 'bg-gradient-to-r from-sage-green to-sage-700 text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95'
-                  : 'text-charcoal hover:bg-sage-green/10 hover:scale-105 active:scale-95 backdrop-blur-xl'
-              }`}
-            >
-              <Icon className="w-5 h-5" />
-              <span className="font-medium">{item.label}</span>
-            </Link>
-          )
-        })}
-      </div>
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+                  isActive
+                    ? 'bg-gradient-to-r from-sage-green to-sage-700 text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95'
+                    : 'text-charcoal hover:bg-sage-green/10 hover:scale-105 active:scale-95 backdrop-blur-xl'
+                }`}
+              >
+                <Icon className="w-5 h-5" />
+                <span className="font-medium">{item.label}</span>
+              </Link>
+            )
+          })}
+        </div>
 
-      <div className="mt-8 pt-8 border-t border-sage-green/20">
-        <button
-          onClick={handleLogout}
-          className="flex items-center space-x-3 px-4 py-3 rounded-xl text-charcoal hover:bg-red-50 hover:text-red-600 hover:scale-105 active:scale-95 transition-all duration-300 w-full backdrop-blur-xl"
-        >
-          <LogOut className="w-5 h-5" />
-          <span className="font-medium">Log Out</span>
-        </button>
-      </div>
-    </nav>
+        <div className="mt-8 pt-8 border-t border-sage-green/20">
+          <button
+            onClick={handleLogout}
+            className="flex items-center space-x-3 px-4 py-3 rounded-xl text-charcoal hover:bg-red-50 hover:text-red-600 hover:scale-105 active:scale-95 transition-all duration-300 w-full backdrop-blur-xl"
+          >
+            <LogOut className="w-5 h-5" />
+            <span className="font-medium">Log Out</span>
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Bottom Navigation */}
+      <PortalMobileNav />
+    </>
   )
 }
