@@ -46,7 +46,7 @@ export interface PointTransaction {
   actionType: 'revenue' | 'engagement'
   points: number
   description: string
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
   createdAt: Date
   expiresAt: Date
 }
@@ -59,7 +59,7 @@ export interface EarnPointsRequest {
     referredUserId?: string
     postId?: string
     reactionCount?: number
-    [key: string]: any
+    [key: string]: unknown
   }
 }
 
@@ -164,7 +164,7 @@ export class RewardTracker {
   private static calculateRevenuePoints(
     action: RewardAction,
     userStats: UserRewardStats,
-    metadata: Record<string, any>
+    metadata: Record<string, unknown>
   ): number {
     const { orderValue = 0 } = metadata
 

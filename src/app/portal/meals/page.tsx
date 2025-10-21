@@ -26,7 +26,7 @@ export default function PortalMealsPage() {
   const currentSubscriptionMeals = [
     { id: '1', name: 'Golden Turmeric Chicken Soup', quantity: 4 },
     { id: '2', name: 'Nourishing Bone Broth', quantity: 6 },
-    { id: '3', name: 'Mama\'s Comfort Stew', quantity: 2 },
+    { id: '3', name: 'Mama&apos;s Comfort Stew', quantity: 2 },
   ]
   const nextDeliveryDate = new Date('2025-11-15')
   const subscriptionFrequency: 'weekly' | 'monthly' = 'monthly'
@@ -309,7 +309,7 @@ export default function PortalMealsPage() {
                       <div className="bg-sage-green/10 border border-sage-green/30 rounded-xl p-4">
                         <p className="text-sm text-charcoal-70 text-center">
                           Scroll down to browse all available meals and modify your subscription selections.
-                          Don't forget to lock your menu when you're done!
+                          Don&apos;t forget to lock your menu when you&apos;re done!
                         </p>
                       </div>
                     </>
@@ -502,7 +502,7 @@ export default function PortalMealsPage() {
               <div>
                 <h3 className="font-bold text-purple-800 text-lg mb-2">Bulk Order Inquiry</h3>
                 <p className="text-purple-700 mb-3">
-                  You've reached our maximum online order limit of 20 packages. For larger bulk orders, please contact us directly for custom pricing and delivery arrangements.
+                  You&apos;ve reached our maximum online order limit of 20 packages. For larger bulk orders, please contact us directly for custom pricing and delivery arrangements.
                 </p>
                 <a href="mailto:orders@mothership.com" className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition-colors">
                   <Mail className="w-4 h-4" />
@@ -517,7 +517,7 @@ export default function PortalMealsPage() {
             <div className="mb-6 rounded-2xl p-4 border-2 bg-gradient-to-r from-amber-50 to-yellow-50 border-amber-300 flex items-center gap-3">
               <Star className="w-6 h-6 text-amber-500 fill-current flex-shrink-0" />
               <p className="font-bold text-amber-800">
-                🎉 Bulk Order Bonus Unlocked! You've qualified for our exclusive 22% volume discount on {getTotalMeals()} meals per month!
+                🎉 Bulk Order Bonus Unlocked! You&apos;ve qualified for our exclusive 22% volume discount on {getTotalMeals()} meals per month!
               </p>
             </div>
           )}
@@ -525,7 +525,7 @@ export default function PortalMealsPage() {
             <div className="mb-6 rounded-2xl p-4 border-2 bg-green-50 border-green-300 flex items-center gap-3">
               <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
               <p className="font-bold text-green-800">
-                🎯 Smart Savings! By combining {getTotalPackages()} packages, you've reached {getTotalMeals()} total meals and unlocked {(getVolumeDiscount() * 100).toFixed(0)}% volume discount across your entire order!
+                🎯 Smart Savings! By combining {getTotalPackages()} packages, you&apos;ve reached {getTotalMeals()} total meals and unlocked {(getVolumeDiscount() * 100).toFixed(0)}% volume discount across your entire order!
               </p>
             </div>
           )}

@@ -142,7 +142,7 @@ export default function CheckoutPage() {
                   </h2>
                   <div className="space-y-3">
                     <p className="text-charcoal">
-                      You're subscribing to <span className="font-bold text-sage-green">{subscriptionItem?.name}</span>
+                      You&apos;re subscribing to <span className="font-bold text-sage-green">{subscriptionItem?.name}</span>
                     </p>
                     <div className="bg-white rounded-xl p-4">
                       <div className="flex justify-between items-center mb-2">
@@ -152,7 +152,7 @@ export default function CheckoutPage() {
                         </span>
                       </div>
                       <p className="text-xs text-charcoal/60 border-t border-sage-200 pt-2 mt-2">
-                        You'll be charged {formatPrice(subscriptionItem?.price || 0)} monthly. Cancel anytime from your dashboard.
+                        You&apos;ll be charged {formatPrice(subscriptionItem?.price || 0)} monthly. Cancel anytime from your dashboard.
                       </p>
                     </div>
                     <div className="flex items-start gap-2 text-sm text-charcoal/70">

@@ -10,9 +10,35 @@ import { REWARD_ENGINE_CONFIG, getTierByRevenue } from '@/lib/rewards/reward-eng
 import { Gift, Award, TrendingUp, Heart, Sparkles } from 'lucide-react'
 import Image from 'next/image'
 
+interface RewardsSummary {
+  currentPoints: number
+  totalPoints: number
+  level: {
+    emoji: string
+    name: string
+    description: string
+    minPoints: number
+    multiplier: number
+  }
+  nextLevel?: {
+    emoji: string
+    name: string
+    minPoints: number
+  }
+  pointsToNextLevel: number
+  badges: Array<{ id: string; badge_code: string; earned_at: string }>
+  recentActivity: Array<{
+    id: string
+    description: string
+    created_at: string
+    points: number
+    category: string
+  }>
+}
+
 function RewardsContent() {
   const user = useAppStore((state) => state.user)
-  const [summary, setSummary] = useState<any>(null)
+  const [summary, setSummary] = useState<RewardsSummary | null>(null)
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('overview')
 
@@ -191,11 +217,11 @@ function RewardsContent() {
                 </div>
               ) : monthlyProgress >= 90 ? (
                 <p className="text-sage-green font-semibold">
-                  Amazing! You're at {Math.round(monthlyProgress)}% — almost there! 🌸
+                  Amazing! You&apos;re at {Math.round(monthlyProgress)}% — almost there! 🌸
                 </p>
               ) : monthlyProgress >= 50 ? (
                 <p className="text-charcoal-70">
-                  Wonderful growth — you're over halfway to your monthly goal! 🌿
+                  Wonderful growth — you&apos;re over halfway to your monthly goal! 🌿
                 </p>
               ) : (
                 <p className="text-charcoal-70">
@@ -266,7 +292,7 @@ function RewardsContent() {
                   Recent Blooms
                 </h3>
                 <div className="flex flex-wrap gap-3">
-                  {summary.badges.slice(0, 6).map((userBadge: any) => {
+                  {summary.badges.slice(0, 6).map((userBadge) => {
                     const badge = Object.values(BADGES).find((b) => b.code === userBadge.badge_code)
                     return badge ? (
                       <div key={userBadge.id} className="flex items-center gap-2 bg-gradient-to-br from-sage-green/10 to-gold/5 border border-gold/20 rounded-full px-4 py-2 shadow-sm">
@@ -283,10 +309,10 @@ function RewardsContent() {
             <div className="bg-white rounded-2xl p-6 shadow-card border border-sage-green/10">
               <h3 className="font-bold text-charcoal text-lg mb-4 flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-sage-green" />
-                Your Garden's Growth
+                Your Garden&apos;s Growth
               </h3>
               <div className="space-y-3">
-                {summary?.recentActivity.slice(0, 5).map((transaction: any) => (
+                {summary?.recentActivity.slice(0, 5).map((transaction) => (
                   <div
                     key={transaction.id}
                     className="flex items-center justify-between py-3 border-b border-sage-green/10 last:border-0"
@@ -486,7 +512,7 @@ function RewardsContent() {
 
             <div className="grid grid-cols-2 gap-4">
               {Object.values(BADGES).map((badge) => {
-                const earned = summary?.badges.find((b: any) => b.badge_code === badge.code)
+                const earned = summary?.badges.find((b) => b.badge_code === badge.code)
                 return (
                   <div
                     key={badge.code}
@@ -541,7 +567,7 @@ function RewardsContent() {
             </div>
 
             <div className="bg-white rounded-2xl shadow-card border border-sage-green/10 divide-y divide-sage-green/10">
-              {summary?.recentActivity.map((transaction: any) => (
+              {summary?.recentActivity.map((transaction) => (
                 <div key={transaction.id} className="p-4 flex items-center justify-between hover:bg-sage-green/5 transition-colors">
                   <div className="flex-1">
                     <p className="text-charcoal font-medium mb-1">{transaction.description}</p>
@@ -572,7 +598,15 @@ function RewardsContent() {
 }
 
 // Helper Components
-function EarnCategory({ title, emoji, subtitle, items }: { title: string; emoji: string; subtitle?: string; items: any[] }) {
+interface EarnItemProps {
+  title: string
+  points: string
+  badge?: string
+  cap?: string
+  description?: string
+}
+
+function EarnCategory({ title, emoji, subtitle, items }: { title: string; emoji: string; subtitle?: string; items: EarnItemProps[] }) {
   return (
     <div className="bg-white rounded-2xl p-6 shadow-card border border-sage-green/10">
       <div className="mb-4">
@@ -593,19 +627,13 @@ function EarnCategory({ title, emoji, subtitle, items }: { title: string; emoji:
   )
 }
 
-function EarnItem({ title, points, badge, cap, description }: {
-  title: string;
-  points: string;
-  badge?: string;
-  cap?: string;
-  description?: string;
-}) {
+function EarnItem({ title, points, badge, cap, description }: EarnItemProps) {
   return (
     <div className="flex items-start justify-between py-2 border-b border-sage-green/10 last:border-0">
       <div className="flex-1">
         <div className="text-charcoal font-medium mb-1">{title}</div>
         {description && (
-          <div className="text-xs text-charcoal-70 italic">"{description}"</div>
+          <div className="text-xs text-charcoal-70 italic">&ldquo;{description}&rdquo;</div>
         )}
       </div>
       <div className="flex flex-col items-end gap-1 ml-4">
@@ -625,7 +653,14 @@ function EarnItem({ title, points, badge, cap, description }: {
   )
 }
 
-function RewardTier({ title, emoji, rewards, userPoints }: any) {
+interface RewardTierProps {
+  title: string
+  emoji: string
+  rewards: Array<{ id: string; name: string; points: number; tier: number }>
+  userPoints: number
+}
+
+function RewardTier({ title, emoji, rewards, userPoints }: RewardTierProps) {
   return (
     <div>
       <h4 className="font-bold text-charcoal text-lg mb-4 flex items-center gap-2">
@@ -633,7 +668,7 @@ function RewardTier({ title, emoji, rewards, userPoints }: any) {
         {title}
       </h4>
       <div className="space-y-3">
-        {rewards.map((reward: any) => (
+        {rewards.map((reward) => (
           <RewardItem key={reward.id} reward={reward} userPoints={userPoints} />
         ))}
       </div>
@@ -641,7 +676,12 @@ function RewardTier({ title, emoji, rewards, userPoints }: any) {
   )
 }
 
-function RewardItem({ reward, userPoints }: any) {
+interface RewardItemProps {
+  reward: { id: string; name: string; points: number; tier: number }
+  userPoints: number
+}
+
+function RewardItem({ reward, userPoints }: RewardItemProps) {
   const canAfford = userPoints >= reward.points
 
   return (

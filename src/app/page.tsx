@@ -20,7 +20,7 @@ export default function HomePage() {
     setQuantities(prev => ({ ...prev, [packageId]: quantity }))
   }
 
-  const handleAddToCart = (pkg: MealPackage) => {
+  const handleAddToCart = (pkg: MealPackage): void => {
     const quantity = quantities[pkg.id] || 0
     if (quantity > 0) {
       addToCart(pkg, quantity)
@@ -403,7 +403,7 @@ export default function HomePage() {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Quote mark decoration */}
-                <div className="text-6xl text-sage-green/20 font-serif mb-4">"</div>
+                <div className="text-6xl text-sage-green/20 font-serif mb-4">&ldquo;</div>
 
                 <p className="mb-6 text-gray-700 leading-relaxed italic">
                   {testimonial.quote}

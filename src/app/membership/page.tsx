@@ -47,7 +47,7 @@ export default function MembershipPage() {
           Mothership Membership
         </h1>
         <p className="text-charcoal/70 text-lg md:text-xl text-center mb-16 max-w-2xl">
-          Choose the level of support that's right for your journey
+          Choose the level of support that&apos;s right for your journey
         </p>
 
         {/* Pricing Cards Container */}
@@ -188,7 +188,7 @@ export default function MembershipPage() {
           </h2>
           <p className="text-charcoal/70 text-lg leading-relaxed mb-8">
             Our membership program is designed to provide ongoing support throughout your postpartum journey.
-            From meal discounts to nutrition guidance and community connection, we're here to nourish you every step of the way.
+            From meal discounts to nutrition guidance and community connection, we&apos;re here to nourish you every step of the way.
           </p>
           <div className="grid md:grid-cols-3 gap-8 mt-12">
             <div className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-sage-200">

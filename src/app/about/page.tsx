@@ -31,7 +31,7 @@ export default function AboutPage() {
               Our Story
             </h1>
             <p className="text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              Where neuroscience meets nourishment — a chef's journey from the laboratory
+              Where neuroscience meets nourishment — a chef&apos;s journey from the laboratory
               to the postpartum kitchen.
             </p>
           </div>
@@ -83,12 +83,12 @@ export default function AboutPage() {
                   <div className="md:hidden w-12 h-12 rounded-full bg-gradient-to-br from-sage-green to-sage-700 flex items-center justify-center shadow-lg">
                     <Beaker className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-3xl font-bold text-charcoal">A Scientist's Journey</h3>
+                  <h3 className="text-3xl font-bold text-charcoal">A Scientist&apos;s Journey</h3>
                 </div>
 
                 <div className="prose prose-lg max-w-none text-gray-700 space-y-6 leading-relaxed">
                   <p>
-                    Before Mothership, there was a laboratory bench at the University of Pennsylvania's Smell & Taste Center,
+                    Before Mothership, there was a laboratory bench at the University of Pennsylvania&apos;s Smell & Taste Center,
                     where Monika Knapp studied the intricate pathways through which the human brain interprets flavor. Long before
                     she understood the profound metabolic demands of postpartum recovery, she was mapping the neural architecture
                     of taste perception — measuring threshold sensitivities, documenting chemoreceptor responses, understanding how
@@ -131,7 +131,7 @@ export default function AboutPage() {
                   <p>
                     She learned to taste with precision — to identify the bright acidity of acetic acid versus the mellow roundness of
                     lactic acid, to distinguish the caramelized notes of Maillard reactions from the fruity esters produced during fermentation.
-                    Her work with seasonal, locally sourced ingredients from California's Central Coast became a study in terroir and time,
+                    Her work with seasonal, locally sourced ingredients from California&apos;s Central Coast became a study in terroir and time,
                     each batch of dough a living system responding to temperature, hydration, and the invisible microbiome of her hands and workspace.
                   </p>
                 </div>
@@ -177,7 +177,7 @@ export default function AboutPage() {
                     She discovered <em>The First Forty Days</em> by Heng Ou, and suddenly, ancient wisdom and modern physiology aligned with
                     crystalline clarity. The warming soups, the bone broths rich with glycine and proline for tissue repair, the gentle spices
                     that stimulated circulation without overtaxing digestion, the easily digestible grains that provided sustained energy without
-                    inflammatory load — these weren't merely comfort foods. They were precisely calibrated interventions, developed over millennia,
+                    inflammatory load — these weren&apos;t merely comfort foods. They were precisely calibrated interventions, developed over millennia,
                     designed to support a body engaged in the profound work of recovery and milk production.
                   </p>
                 </div>
@@ -213,7 +213,7 @@ export default function AboutPage() {
 
                   <p className="text-white/95">
                     Mothership emerged from this dual expertise: the precision of laboratory method and the intuition of culinary craft. Every meal
-                    is designed with the same rigor she once brought to her research at Penn's Smell & Taste Center.
+                    is designed with the same rigor she once brought to her research at Penn&apos;s Smell & Taste Center.
                   </p>
                 </div>
               </div>
@@ -229,7 +229,7 @@ export default function AboutPage() {
                 The Science of Postpartum Nourishment
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Monika's approach is grounded in key principles, each supported by both traditional practice and modern research
+                Monika&apos;s approach is grounded in key principles, each supported by both traditional practice and modern research
               </p>
             </div>
 
@@ -295,13 +295,13 @@ export default function AboutPage() {
 
               <div className="prose prose-lg max-w-none text-gray-700 space-y-8 leading-relaxed">
                 <p className="text-xl">
-                  If there is a through line in Monika's work — from the Smell & Taste Center to Colony Culture to Mothership — it is this:
+                  If there is a through line in Monika&apos;s work — from the Smell & Taste Center to Colony Culture to Mothership — it is this:
                   an understanding that nourishment is both biochemical and deeply human.
                 </p>
 
                 <div className="backdrop-blur-xl bg-sage-green/10 rounded-2xl p-8 border-l-4 border-sage-green">
                   <p className="text-lg italic text-charcoal">
-                    "Food, prepared with attention and knowledge, can be a form of medicine. Each mother's recovery is unique. Each body has its own timeline, its own needs, its own relationship to food and comfort."
+                    &ldquo;Food, prepared with attention and knowledge, can be a form of medicine. Each mother&apos;s recovery is unique. Each body has its own timeline, its own needs, its own relationship to food and comfort.&rdquo;
                   </p>
                 </div>
 

@@ -13,7 +13,7 @@ import { CheckCircle2, Sparkles, ArrowRight, Calendar, CreditCard, Mail } from '
 export default function CheckoutSuccessPage() {
   const router = useRouter()
   const { isAuthenticated, user, setUser } = useAppStore()
-  const [orderData, setOrderData] = useState<any>(null)
+  const [orderData, setOrderData] = useState<Record<string, unknown> | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export default function CheckoutSuccessPage() {
           <p className="text-xl text-charcoal/70 max-w-2xl mx-auto">
             {isSubscription
               ? 'Your subscription is now active. Thank you for joining our community!'
-              : 'Thank you for your order. We can\'t wait to nourish you!'}
+              : 'Thank you for your order. We can&apos;t wait to nourish you!'}
           </p>
         </div>
 
@@ -157,32 +157,32 @@ export default function CheckoutSuccessPage() {
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-charcoal mb-4">Order Items</h2>
             <div className="space-y-4">
-              {orderData.items.map((item: any) => (
-                <div key={item.id} className="flex gap-4 items-center">
+              {(orderData.items as Array<Record<string, unknown>>).map((item: Record<string, unknown>) => (
+                <div key={item.id as string} className="flex gap-4 items-center">
                   <div className="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-sage-50">
                     <Image
-                      src={item.image}
-                      alt={item.name}
+                      src={item.image as string}
+                      alt={item.name as string}
                       fill
                       className="object-cover"
                     />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-charcoal">{item.name}</h3>
-                    <p className="text-sm text-charcoal/60">{item.description}</p>
+                    <h3 className="font-semibold text-charcoal">{item.name as string}</h3>
+                    <p className="text-sm text-charcoal/60">{item.description as string}</p>
                     <div className="flex items-center gap-2 mt-1">
                       {item.type === 'subscription' ? (
                         <span className="text-xs px-2 py-1 bg-terracotta/10 text-terracotta rounded-full font-medium">
                           Monthly Subscription
                         </span>
                       ) : (
-                        <span className="text-sm text-charcoal/60">Qty: {item.quantity}</span>
+                        <span className="text-sm text-charcoal/60">Qty: {item.quantity as number}</span>
                       )}
                     </div>
                   </div>
                   <div className="text-right">
                     <p className="font-bold text-sage-green">
-                      {formatPrice(item.price * item.quantity)}
+                      {formatPrice((item.price as number) * (item.quantity as number))}
                       {item.type === 'subscription' && <span className="text-sm text-charcoal/60">/mo</span>}
                     </p>
                   </div>

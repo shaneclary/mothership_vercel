@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAppStore } from '@/lib/store'
 import Link from 'next/link'
@@ -21,8 +21,17 @@ export default function SignupPage() {
   const [twoFAMethod, setTwoFAMethod] = useState<'app' | 'sms'>('app')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [returnUrl, setReturnUrl] = useState<string | null>(null)
   const { setUser, setIsAuthenticated } = useAppStore()
   const router = useRouter()
+
+  // Get return URL from query params on client side only
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      setReturnUrl(params.get('returnUrl'))
+    }
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
@@ -62,7 +71,6 @@ export default function SignupPage() {
     setIsAuthenticated(true)
 
     // Redirect to checkout if coming from membership page, otherwise home
-    const returnUrl = new URLSearchParams(window.location.search).get('returnUrl')
     router.push(returnUrl || '/')
     setLoading(false)
   }
