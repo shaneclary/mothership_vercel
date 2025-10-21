@@ -3,6 +3,7 @@ import { Inter, Parisienne, Cormorant_Garamond, Raleway, Poppins } from 'next/fo
 import './globals.css'
 import { CartProvider } from '@/context/CartContext'
 import { AuthProvider } from '@/context/AuthContext'
+import MobileNav from '@/components/MobileNav'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -100,6 +101,7 @@ export default function RootLayout({
         <AuthProvider>
           <CartProvider>
             {children}
+            <MobileNav />
           </CartProvider>
         </AuthProvider>
       </body>
