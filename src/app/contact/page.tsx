@@ -162,7 +162,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-charcoal mb-1">Email</h3>
-                    <p className="text-charcoal/70">hello@eatmothership.co</p>
+                    <p className="text-charcoal/70">hello@eatmothership.com</p>
                     <p className="text-sm text-charcoal/60">We typically respond within 24 hours</p>
                   </div>
                 </div>

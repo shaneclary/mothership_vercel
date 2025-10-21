@@ -52,7 +52,7 @@ export default function PerksPage() {
   const [nominationSubmitted, setNominationSubmitted] = useState(false)
 
   const referralCode = 'SARAH2024'
-  const referralLink = `https://eatmothership.co/join?ref=${referralCode}`
+  const referralLink = `https://eatmothership.com/join?ref=${referralCode}`
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(referralCode)

@@ -50,14 +50,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://eatmothership.co'),
+  metadataBase: new URL('https://eatmothership.com'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: 'Mothership - Nourishment for the Fourth Trimester',
     description: 'Wholesome frozen meals inspired by ancient postpartum care — delivered to your door.',
-    url: 'https://eatmothership.co',
+    url: 'https://eatmothership.com',
     siteName: 'Mothership',
     images: [
       {

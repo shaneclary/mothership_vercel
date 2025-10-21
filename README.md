@@ -52,7 +52,7 @@ A comprehensive web application for **Mothership**, a postpartum meal delivery s
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd eatmothership.co
+   cd eatmothership
    ```
 
 2. **Install dependencies**
@@ -191,7 +191,7 @@ The application is ready for deployment on:
 
 ### Environment Variables
 ```env
-NEXT_PUBLIC_SITE_URL=https://eatmothership.co
+NEXT_PUBLIC_SITE_URL=https://eatmothership.com
 # Add other environment variables as needed
 ```
 
