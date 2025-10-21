@@ -14,7 +14,7 @@ export default function MobileNav() {
 
   const navItems = [
     { href: '/about', icon: Heart, label: 'About' },
-    { href: '/meals', icon: Utensils, label: 'Meals' },
+    { href: '/meals', icon: Utensils, label: 'Nourish' },
     { href: '/packages', icon: Package, label: 'Packages' },
     { href: '/search', icon: Search, label: 'Search' },
     { href: '/portal', icon: User, label: 'Portal' },
