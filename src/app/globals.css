@@ -122,11 +122,27 @@
     color: #A8B99C; /* Sage Green */
   }
 
-  /* Legacy font support (maps to Parisienne) */
+  /* Individual font classes for mixed-case titles */
+  .font-parisienne {
+    font-family: var(--font-parisienne);
+  }
+
+  .font-cormorant {
+    font-family: var(--font-cormorant);
+  }
+
+  /* Title font: Parisienne for uppercase, Cormorant Garamond for lowercase */
+  /* Default to Cormorant with enhanced first letter in Parisienne */
   .font-cedarville {
-    font-family: var(--font-family-parisienne);
+    font-family: var(--font-cormorant);
     line-height: 1.6;
     overflow: visible;
+  }
+
+  /* Apply Parisienne to the first letter */
+  .font-cedarville::first-letter {
+    font-family: var(--font-parisienne);
+    font-size: 1.15em;
   }
 
   /* Utility classes */
