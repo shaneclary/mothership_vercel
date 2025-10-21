@@ -36,13 +36,13 @@ export default function QuantitySelector({
         onClick={handleDecrease}
         disabled={quantity <= min}
         className={cn(
-          "w-10 h-10 flex items-center justify-center transition-all duration-200",
+          "w-12 h-12 flex items-center justify-center flex-shrink-0 transition-all duration-200",
           quantity <= min
             ? "text-gray-400 cursor-not-allowed bg-gray-100"
             : "text-charcoal hover:bg-sage/10 hover:text-sage hover:scale-110 active:scale-95"
         )}
       >
-        <Minus className="w-4 h-4 flex-shrink-0" />
+        <Minus className="w-5 h-5 flex-shrink-0" strokeWidth={2} />
       </button>
 
       <div className="px-4 py-3 min-w-[4rem] text-center border-x border-gray-200 bg-white">
@@ -58,13 +58,13 @@ export default function QuantitySelector({
         onClick={handleIncrease}
         disabled={quantity >= max}
         className={cn(
-          "w-10 h-10 flex items-center justify-center transition-all duration-200",
+          "w-12 h-12 flex items-center justify-center flex-shrink-0 transition-all duration-200",
           quantity >= max
             ? "text-gray-400 cursor-not-allowed bg-gray-100"
             : "text-charcoal hover:bg-sage/10 hover:text-sage hover:scale-110 active:scale-95"
         )}
       >
-        <Plus className="w-4 h-4 flex-shrink-0" />
+        <Plus className="w-5 h-5 flex-shrink-0" strokeWidth={2} />
       </button>
     </div>
   )

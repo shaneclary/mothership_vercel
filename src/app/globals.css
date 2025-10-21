@@ -132,17 +132,12 @@
   }
 
   /* Title font: Parisienne for uppercase, Cormorant Garamond for lowercase */
-  /* Default to Cormorant with enhanced first letter in Parisienne */
+  /* Use TitleText component for proper mixed-case styling */
+  /* This class is a fallback - for best results, use the TitleText component */
   .font-cedarville {
     font-family: var(--font-cormorant);
     line-height: 1.6;
     overflow: visible;
-  }
-
-  /* Apply Parisienne to the first letter */
-  .font-cedarville::first-letter {
-    font-family: var(--font-parisienne);
-    font-size: 1.15em;
   }
 
   /* Utility classes */

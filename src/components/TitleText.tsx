@@ -16,17 +16,17 @@ export default function TitleText({ children, className = '' }: TitleTextProps) 
   // Split text into characters and wrap each with appropriate font
   const styledText = children.split('').map((char, index) => {
     const isUpperCase = char === char.toUpperCase() && char !== char.toLowerCase()
-    const fontClass = isUpperCase ? 'font-parisienne' : 'font-cormorant'
+    const fontClass = isUpperCase ? 'font-parisienne text-[1.15em]' : 'font-cormorant'
 
     return (
-      <span key={index} className={fontClass}>
+      <span key={index} className={fontClass} style={{ display: 'inline-block' }}>
         {char}
       </span>
     )
   })
 
   return (
-    <span className={className}>
+    <span className={className} style={{ lineHeight: 1.6 }}>
       {styledText}
     </span>
   )
