@@ -18,9 +18,12 @@ export default function TitleText({ children, className = '' }: TitleTextProps) 
     const isUpperCase = char === char.toUpperCase() && char !== char.toLowerCase()
     const fontClass = isUpperCase ? 'font-parisienne text-[1.15em]' : 'font-cormorant'
 
+    // Preserve space character width
+    const isSpace = char === ' '
+
     return (
-      <span key={index} className={fontClass} style={{ display: 'inline-block' }}>
-        {char}
+      <span key={index} className={fontClass} style={{ display: 'inline' }}>
+        {isSpace ? '\u00A0' : char}
       </span>
     )
   })
