@@ -299,18 +299,18 @@ export default function HomePage() {
                     </div>
 
                     {/* Quantity Selector */}
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-start gap-3">
                       <QuantitySelector
                         quantity={quantities[pkg.id] || 0}
                         onQuantityChange={(qty) => handleQuantityChange(pkg.id, qty)}
                         min={0}
                         max={10}
-                        className="flex-1"
                       />
                       <button
                         onClick={() => handleAddToCart(pkg)}
                         disabled={!quantities[pkg.id] || quantities[pkg.id] === 0}
-                        className="rounded-full bg-gradient-to-r from-sage-green to-sage-700 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-md"
+                        className="flex-none shrink-0 grow-0 w-[80px] h-[40px] rounded-full bg-gradient-to-r from-sage-green to-sage-700 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-md flex items-center justify-center"
+                        style={{ flex: '0 0 auto', width: '80px', minWidth: '80px', maxWidth: '80px' }}
                       >
                         Add
                       </button>
