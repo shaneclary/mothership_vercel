@@ -17,7 +17,7 @@ export default function MobileNav() {
     { href: '/meals', icon: Utensils, label: 'Nourish' },
     { href: '/packages', icon: Package, label: 'Packages' },
     { href: '/search', icon: Search, label: 'Search' },
-    { href: '/portal', icon: User, label: 'Portal' },
+    { href: '/portal', icon: User, label: 'Members' },
     { href: '/cart', icon: ShoppingCart, label: 'Cart', badge: cartCount },
     { href: '#', icon: Menu, label: 'Menu', onClick: () => setShowMenu(!showMenu) },
   ]

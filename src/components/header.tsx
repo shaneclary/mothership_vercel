@@ -67,7 +67,7 @@ export default function Header() {
               <Link
                 href="/portal"
                 className="p-3 text-charcoal hover:text-sage-green transition-colors duration-300 rounded-full hover:bg-sage-green/10 active:scale-95"
-                title="My Portal"
+                title="Members"
               >
                 <User className="w-5 h-5" />
               </Link>
