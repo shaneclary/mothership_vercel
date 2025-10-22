@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAppStore } from '@/lib/store'
 import Link from 'next/link'
-import { ArrowLeft, User, Mail, Phone, Lock, Sparkles, Smartphone, MessageSquare, Shield } from 'lucide-react'
+import { ArrowLeft, User, Mail, Phone, Lock, Sparkles, Smartphone, MessageSquare, Shield, Check } from 'lucide-react'
+import { sendVerificationCode, verifyPhoneCode, claimValidationReward } from '@/lib/phone-validation'
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -22,6 +23,16 @@ export default function SignupPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [returnUrl, setReturnUrl] = useState<string | null>(null)
+
+  // Phone validation states
+  const [showPhoneValidation, setShowPhoneValidation] = useState(false)
+  const [validationId, setValidationId] = useState('')
+  const [verificationCode, setVerificationCode] = useState('')
+  const [phoneValidationError, setPhoneValidationError] = useState('')
+  const [phoneValidationLoading, setPhoneValidationLoading] = useState(false)
+  const [phoneValidationSuccess, setPhoneValidationSuccess] = useState(false)
+  const [rewardAmount, setRewardAmount] = useState(0)
+
   const { setUser, setIsAuthenticated } = useAppStore()
   const router = useRouter()
 
@@ -56,12 +67,15 @@ export default function SignupPage() {
 
     setLoading(true)
 
-    // Mock signup
+    // Mock signup - generate a user ID
+    const mockUserId = `user_${Date.now()}`
+
     const newUser = {
       email: formData.email,
       name: `${formData.firstName} ${formData.lastName}`,
       firstName: formData.firstName,
       username: formData.username,
+      phone: formData.phone,
       isSubscribed: false,
       isMember: false,
       memberSince: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
@@ -69,10 +83,72 @@ export default function SignupPage() {
 
     setUser(newUser)
     setIsAuthenticated(true)
-
-    // Redirect to checkout if coming from membership page, otherwise home
-    router.push(returnUrl || '/')
     setLoading(false)
+
+    // If phone provided, show validation modal
+    if (formData.phone.trim()) {
+      await initiatePhoneValidation(mockUserId, formData.phone)
+    } else {
+      // Otherwise redirect immediately
+      router.push(returnUrl || '/')
+    }
+  }
+
+  const initiatePhoneValidation = async (userId: string, phone: string) => {
+    setPhoneValidationLoading(true)
+    const result = await sendVerificationCode(userId, phone)
+
+    if (result.success) {
+      setValidationId(result.validationId)
+      setShowPhoneValidation(true)
+      setPhoneValidationLoading(false)
+    } else {
+      setPhoneValidationError(result.error || 'Failed to send verification code')
+      setPhoneValidationLoading(false)
+      // Still redirect after a delay
+      setTimeout(() => {
+        router.push(returnUrl || '/')
+      }, 2000)
+    }
+  }
+
+  const handleVerifyCode = async () => {
+    setPhoneValidationError('')
+    setPhoneValidationLoading(true)
+
+    const result = await verifyPhoneCode(validationId, verificationCode)
+
+    if (result.success) {
+      if (result.canClaimReward) {
+        // Claim the reward
+        const claimResult = await claimValidationReward(validationId)
+        if (claimResult.success) {
+          setRewardAmount(claimResult.rewardAmount || 0)
+          setPhoneValidationSuccess(true)
+        }
+      } else {
+        // Phone validated but reward already claimed
+        setPhoneValidationError('Phone verified, but this number has already claimed the reward')
+        setTimeout(() => {
+          setShowPhoneValidation(false)
+          router.push(returnUrl || '/')
+        }, 3000)
+      }
+    } else {
+      setPhoneValidationError(result.error || 'Invalid verification code')
+    }
+
+    setPhoneValidationLoading(false)
+  }
+
+  const handleSkipValidation = () => {
+    setShowPhoneValidation(false)
+    router.push(returnUrl || '/')
+  }
+
+  const handleContinueAfterValidation = () => {
+    setShowPhoneValidation(false)
+    router.push(returnUrl || '/')
   }
 
   return (
@@ -120,11 +196,12 @@ export default function SignupPage() {
                 onChange={handleChange}
                 placeholder="Choose a username"
                 required
-                pattern="[a-zA-Z0-9_]{3,20}"
-                title="Username must be 3-20 characters (letters, numbers, underscores only)"
+                maxLength={26}
+                pattern="[a-zA-Z0-9_]{3,26}"
+                title="Username must be 3-26 characters (letters, numbers, underscores only)"
                 className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-sage-green focus:border-transparent transition-all bg-white shadow-sm"
               />
-              <p className="text-xs text-gray-500 mt-1">3-20 characters, letters, numbers, and underscores only</p>
+              <p className="text-xs text-gray-500 mt-1">3-26 characters, letters, numbers, and underscores only</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -179,7 +256,7 @@ export default function SignupPage() {
             <div>
               <label className="block text-sm font-semibold text-charcoal mb-2 flex items-center gap-2">
                 <Phone className="w-4 h-4 text-sage-green" />
-                Phone <span className="text-gray-400 text-xs">(Optional)</span>
+                Phone <span className="text-gray-400 text-xs">(Optional, get extra perks)</span>
               </label>
               <input
                 type="tel"
@@ -189,6 +266,10 @@ export default function SignupPage() {
                 placeholder="(555) 123-4567"
                 className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-sage-green focus:border-transparent transition-all bg-white shadow-sm"
               />
+              <p className="mt-2 text-sm text-green-600 flex items-center gap-2">
+                <Sparkles className="w-4 h-4" />
+                Get $10 in rewards when you validate your phone number!
+              </p>
             </div>
 
             <div>
@@ -343,6 +424,108 @@ export default function SignupPage() {
           </p>
         </div>
       </div>
+
+      {/* Phone Validation Modal */}
+      {showPhoneValidation && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 px-4 animate-fade-in">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl animate-fade-in-scale">
+            {!phoneValidationSuccess ? (
+              <>
+                {/* Verification Input */}
+                <div className="text-center mb-6">
+                  <div className="inline-block p-4 rounded-full bg-gradient-to-br from-sage-green to-sage-700 mb-4">
+                    <Phone className="w-8 h-8 text-white" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-charcoal mb-2">
+                    Verify Your Phone
+                  </h2>
+                  <p className="text-gray-600 text-sm">
+                    We&apos;ve sent a 6-digit code to<br />
+                    <span className="font-semibold text-sage-green">{formData.phone}</span>
+                  </p>
+                  <p className="text-xs text-gray-500 mt-2">
+                    Check your console for the verification code (SMS integration coming soon)
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  {phoneValidationError && (
+                    <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm animate-fade-in-scale">
+                      {phoneValidationError}
+                    </div>
+                  )}
+
+                  <div>
+                    <label className="block text-sm font-semibold text-charcoal mb-2">
+                      Verification Code
+                    </label>
+                    <input
+                      type="text"
+                      value={verificationCode}
+                      onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                      placeholder="000000"
+                      maxLength={6}
+                      className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-sage-green focus:border-transparent transition-all bg-white shadow-sm text-center text-2xl tracking-widest font-mono"
+                    />
+                  </div>
+
+                  <button
+                    onClick={handleVerifyCode}
+                    disabled={phoneValidationLoading || verificationCode.length !== 6}
+                    className="w-full bg-gradient-to-r from-sage-green to-sage-700 text-white rounded-full py-4 font-semibold hover:scale-105 active:scale-95 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                  >
+                    {phoneValidationLoading ? 'Verifying...' : 'Verify & Claim $10 Reward'}
+                  </button>
+
+                  <button
+                    onClick={handleSkipValidation}
+                    className="w-full text-gray-600 hover:text-charcoal py-3 font-medium transition-colors"
+                  >
+                    Skip for now
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Success State */}
+                <div className="text-center">
+                  <div className="inline-block p-4 rounded-full bg-gradient-to-br from-green-500 to-green-600 mb-4 animate-bounce-in">
+                    <Check className="w-12 h-12 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-bold text-charcoal mb-2">
+                    Success!
+                  </h2>
+                  <p className="text-gray-600 mb-6">
+                    Your phone has been verified
+                  </p>
+
+                  <div className="bg-gradient-to-br from-green-50 to-sage-50 border-2 border-green-200 rounded-2xl p-6 mb-6">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <Sparkles className="w-6 h-6 text-green-600" />
+                      <span className="text-4xl font-bold text-green-600">
+                        ${rewardAmount.toFixed(2)}
+                      </span>
+                    </div>
+                    <p className="text-green-700 font-semibold">
+                      Added to your account!
+                    </p>
+                    <p className="text-sm text-gray-600 mt-2">
+                      Use your rewards on your next order
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={handleContinueAfterValidation}
+                    className="w-full bg-gradient-to-r from-sage-green to-sage-700 text-white rounded-full py-4 font-semibold hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg"
+                  >
+                    Continue
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

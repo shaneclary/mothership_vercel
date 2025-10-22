@@ -65,8 +65,25 @@ export interface User {
   firstName: string
   lastName: string
   phone?: string
+  phoneValidated?: boolean
+  phoneValidatedAt?: string
+  phoneValidationRewardClaimed?: boolean
   createdAt: string
   lastLoginAt: string
+}
+
+export interface PhoneValidation {
+  id: string
+  userId: string
+  phoneNumber: string
+  verificationCode: string
+  isValidated: boolean
+  validatedAt?: string
+  rewardClaimed: boolean
+  rewardClaimedAt?: string
+  rewardAmount: number
+  createdAt: string
+  expiresAt: string
 }
 
 export interface MembershipStats {
