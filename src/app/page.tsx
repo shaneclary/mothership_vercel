@@ -310,7 +310,7 @@ export default function HomePage() {
                       <button
                         onClick={() => handleAddToCart(pkg)}
                         disabled={!quantities[pkg.id] || quantities[pkg.id] === 0}
-                        className="rounded-full bg-gradient-to-r from-sage-green to-sage-700 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                        className="rounded-full bg-gradient-to-r from-sage-green to-sage-700 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-md"
                       >
                         Add
                       </button>
