@@ -5,6 +5,7 @@ import PortalNav from '@/components/portal-nav'
 import { useAppStore } from '@/lib/store'
 import Link from 'next/link'
 import { ShoppingBag, CreditCard, BookOpen, Calendar, TrendingUp } from 'lucide-react'
+import TitleRule from '@/components/TitleRule'
 
 export default function PortalPage() {
   const user = useAppStore((state) => state.user)
@@ -32,44 +33,43 @@ export default function PortalPage() {
             </p>
           </div>
 
-          {/* Subscription Status Card - with clip-fix for proper rendering */}
+          {/* Subscription Status Card - mobile-optimized */}
           {user?.subscription && (
-            <div className="clip-fix rounded-3xl bg-gradient-to-b from-sage-700 to-sage-500 p-6 sm:p-8 mb-8 text-white shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-scale">
-              <div className="mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div className="flex-1">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-sm backdrop-blur-sm">
-                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                    Active Member
-                  </span>
-                </div>
+            <div className="w-full max-w-full overflow-hidden rounded-3xl bg-gradient-to-b from-sage-700 to-sage-500 p-5 sm:p-7 mb-8 text-white shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-scale">
+              <div className="mb-4 flex min-w-0 items-center justify-between gap-3">
+                <span className="inline-flex min-w-0 items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-sm">
+                  <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="truncate">Active Member</span>
+                </span>
+
                 <Link
                   href="/portal/subscription"
-                  className="bg-white text-sage-700 px-4 py-2 rounded-full shadow hover:scale-105 active:scale-95 transition-transform duration-200 font-medium"
+                  className="shrink-0 bg-white text-sage-700 px-4 py-2 rounded-full shadow hover:scale-105 active:scale-95 transition-transform duration-200 font-medium"
                 >
                   Manage Plan
                 </Link>
               </div>
 
-              <h2 className="text-3xl font-semibold tracking-tight no-wrap mb-2">
-                {user.subscription.mealPlanSize} <span className="no-wrap">Meal Plan</span>
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight mb-2">
+                {user.subscription.mealPlanSize} Meal Plan
               </h2>
-              <p className="text-white/90 mb-1">Next delivery:</p>
-              <p className="text-xl font-medium mb-5">{user.subscription.nextDelivery}</p>
+              <p className="text-white/90 text-sm sm:text-base">Next delivery:</p>
+              <p className="text-lg sm:text-xl font-medium mb-4">{user.subscription.nextDelivery}</p>
 
-              <hr className="my-5 border-white/20" />
+              <hr className="my-4 border-white/20" />
 
-              <div className="grid grid-cols-3 gap-3">
-                <div className="rounded-2xl bg-white/10 p-4 text-center backdrop-blur">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="min-w-0 rounded-2xl bg-white/10 p-4 text-center backdrop-blur">
                   <div className="text-3xl font-bold">{user.subscription.orders}</div>
-                  <div className="mt-1 text-[11px] tracking-wide text-white/85">TOTAL ORDERS</div>
+                  <div className="mt-1 text-[11px] tracking-wide text-white/85 truncate">TOTAL ORDERS</div>
                 </div>
-                <div className="rounded-2xl bg-white/10 p-4 text-center backdrop-blur">
+                <div className="min-w-0 rounded-2xl bg-white/10 p-4 text-center backdrop-blur">
                   <div className="text-3xl font-bold">{user.subscription.dayStreak}</div>
-                  <div className="mt-1 text-[11px] tracking-wide text-white/85">DAY STREAK</div>
+                  <div className="mt-1 text-[11px] tracking-wide text-white/85 truncate">DAY STREAK</div>
                 </div>
-                <div className="rounded-2xl bg-white/10 p-4 text-center backdrop-blur">
+                <div className="min-w-0 rounded-2xl bg-white/10 p-4 text-center backdrop-blur">
                   <div className="text-3xl font-bold">${user.subscription.totalSavings}</div>
-                  <div className="mt-1 text-[11px] tracking-wide text-white/85">TOTAL SAVINGS</div>
+                  <div className="mt-1 text-[11px] tracking-wide text-white/85 truncate">TOTAL SAVINGS</div>
                 </div>
               </div>
             </div>
