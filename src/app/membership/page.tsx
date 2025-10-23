@@ -6,11 +6,11 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { Star, Sparkles, Crown, Check } from 'lucide-react'
 import { useAppStore } from '@/lib/store'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 
 type MembershipTier = 'basic' | 'premium' | 'vip'
 
-export default function MembershipPage() {
+function MembershipContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const addToCart = useAppStore((state) => state.addToCart)
@@ -353,5 +353,13 @@ export default function MembershipPage() {
 
       <Footer />
     </div>
+  )
+}
+
+export default function MembershipPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen" style={{ backgroundColor: '#FAF8F5' }}><Header /><div className="py-24 text-center">Loading...</div><Footer /></div>}>
+      <MembershipContent />
+    </Suspense>
   )
 }

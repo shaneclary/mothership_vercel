@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -33,15 +33,17 @@ export default function CheckoutPage() {
   const hasSubscription = cartItems.some(item => item.type === 'subscription')
   const subscriptionItem = cartItems.find(item => item.type === 'subscription')
 
-  // Redirect if not authenticated
-  if (!isAuthenticated) {
-    router.push('/auth/login?returnUrl=/checkout')
-    return null
-  }
+  // Redirect if not authenticated or cart is empty (using useEffect for SSR compatibility)
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/auth/login?returnUrl=/checkout')
+    } else if (cartItems.length === 0) {
+      router.push('/cart')
+    }
+  }, [isAuthenticated, cartItems.length, router])
 
-  // Redirect if cart is empty
-  if (cartItems.length === 0) {
-    router.push('/cart')
+  // Show loading while redirecting
+  if (!isAuthenticated || cartItems.length === 0) {
     return null
   }
 
