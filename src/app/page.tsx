@@ -112,8 +112,8 @@ export default function HomePage() {
                   <span className="text-sm font-semibold text-sage-green uppercase tracking-wider">Our Story</span>
                 </div>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-sage-green">
-                <TitleText>Created by Mothers, for Mothers</TitleText>
+              <h2 className="text-4xl md:text-5xl font-bold text-sage-700 leading-tight no-hyphens keep-words">
+                Created by <span className="no-wrap">Mothers,</span> for <span className="no-wrap">Mothers</span>
               </h2>
               <p className="text-gray-700 leading-relaxed text-lg">
                 Welcome to Mothership — where your nourishment comes first. As a mother I know how transformative the fourth trimester can be, and we're here to make it easier. Rooted in time-honored postpartum traditions, our chef-crafted frozen meals are designed to help your body recover, your energy return, and your heart feel supported. Every ingredient, every recipe, every delivery is made with the care only a mother could give — so you can rest, heal, and truly be cared for.

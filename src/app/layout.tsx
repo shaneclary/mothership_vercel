@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Parisienne, Cormorant_Garamond, Raleway, Poppins } from 'next/font/google'
 import './globals.css'
 import { CartProvider } from '@/context/CartContext'
@@ -88,6 +88,12 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover', // ✅ Enables iOS safe-area support
 }
 
 export default function RootLayout({

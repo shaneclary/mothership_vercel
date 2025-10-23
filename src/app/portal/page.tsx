@@ -24,58 +24,52 @@ export default function PortalPage() {
         <main className="flex-1 md:p-8 p-4 pt-20 md:pt-8 relative z-10">
           {/* Welcome Section */}
           <div className="mb-8 animate-fade-in-up">
-            <h1 className="text-5xl font-bold text-sage-green mb-3 font-cedarville">
-              Welcome back, {user?.firstName || 'friend'}!
+            <h1 className="text-4xl sm:text-5xl font-medium leading-tight text-sage-700 tracking-tight mb-3 no-hyphens keep-words">
+              Welcome back, <span className="no-wrap">{user?.firstName || 'friend'}!</span>
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-base text-sage-900/80">
               Here&apos;s what&apos;s happening with your Mothership journey
             </p>
           </div>
 
-          {/* Subscription Status Card */}
+          {/* Subscription Status Card - with clip-fix for proper rendering */}
           {user?.subscription && (
-            <div className="relative overflow-hidden bg-gradient-to-br from-sage-green via-sage-600 to-sage-700 rounded-3xl p-8 mb-8 text-white shadow-2xl hover:shadow-sage-green/30 transition-all duration-500 animate-fade-in-scale">
-              {/* Decorative elements */}
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl" />
+            <div className="clip-fix rounded-3xl bg-gradient-to-b from-sage-700 to-sage-500 p-6 sm:p-8 mb-8 text-white shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-scale">
+              <div className="mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="flex-1">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-sm backdrop-blur-sm">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Active Member
+                  </span>
+                </div>
+                <Link
+                  href="/portal/subscription"
+                  className="bg-white text-sage-700 px-4 py-2 rounded-full shadow hover:scale-105 active:scale-95 transition-transform duration-200 font-medium"
+                >
+                  Manage Plan
+                </Link>
               </div>
 
-              <div className="relative z-10">
-                <div className="flex items-start justify-between mb-6">
-                  <div>
-                    <div className="inline-flex items-center backdrop-blur-xl bg-white/20 px-4 py-2 rounded-full text-sm font-semibold mb-3 shadow-lg">
-                      <span className="w-2 h-2 bg-green-300 rounded-full mr-2 animate-pulse" />
-                      Active Member
-                    </div>
-                    <h2 className="text-3xl font-bold mb-2">
-                      {user.subscription.mealPlanSize} Meal Plan
-                    </h2>
-                    <p className="text-white/90 text-lg">
-                      Next delivery: <span className="font-semibold">{user.subscription.nextDelivery}</span>
-                    </p>
-                  </div>
-                  <Link
-                    href="/portal/subscription"
-                    className="bg-white text-sage-green px-6 py-3 rounded-full font-semibold hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl hover:shadow-2xl"
-                  >
-                    Manage Plan
-                  </Link>
-                </div>
+              <h2 className="text-3xl font-semibold tracking-tight no-wrap mb-2">
+                {user.subscription.mealPlanSize} <span className="no-wrap">Meal Plan</span>
+              </h2>
+              <p className="text-white/90 mb-1">Next delivery:</p>
+              <p className="text-xl font-medium mb-5">{user.subscription.nextDelivery}</p>
 
-                <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/20">
-                  <div className="backdrop-blur-xl bg-white/10 rounded-2xl p-4 hover:bg-white/20 transition-all duration-300">
-                    <div className="text-4xl font-bold mb-1">{user.subscription.orders}</div>
-                    <div className="text-white/90 text-sm font-medium uppercase tracking-wider">Total Orders</div>
-                  </div>
-                  <div className="backdrop-blur-xl bg-white/10 rounded-2xl p-4 hover:bg-white/20 transition-all duration-300">
-                    <div className="text-4xl font-bold mb-1">{user.subscription.dayStreak}</div>
-                    <div className="text-white/90 text-sm font-medium uppercase tracking-wider">Day Streak</div>
-                  </div>
-                  <div className="backdrop-blur-xl bg-white/10 rounded-2xl p-4 hover:bg-white/20 transition-all duration-300">
-                    <div className="text-4xl font-bold mb-1">${user.subscription.totalSavings}</div>
-                    <div className="text-white/90 text-sm font-medium uppercase tracking-wider">Total Savings</div>
-                  </div>
+              <hr className="my-5 border-white/20" />
+
+              <div className="grid grid-cols-3 gap-3">
+                <div className="rounded-2xl bg-white/10 p-4 text-center backdrop-blur">
+                  <div className="text-3xl font-bold">{user.subscription.orders}</div>
+                  <div className="mt-1 text-[11px] tracking-wide text-white/85">TOTAL ORDERS</div>
+                </div>
+                <div className="rounded-2xl bg-white/10 p-4 text-center backdrop-blur">
+                  <div className="text-3xl font-bold">{user.subscription.dayStreak}</div>
+                  <div className="mt-1 text-[11px] tracking-wide text-white/85">DAY STREAK</div>
+                </div>
+                <div className="rounded-2xl bg-white/10 p-4 text-center backdrop-blur">
+                  <div className="text-3xl font-bold">${user.subscription.totalSavings}</div>
+                  <div className="mt-1 text-[11px] tracking-wide text-white/85">TOTAL SAVINGS</div>
                 </div>
               </div>
             </div>
@@ -83,7 +77,7 @@ export default function PortalPage() {
 
           {/* Quick Actions */}
           <div className="mb-8">
-            <h2 className="text-3xl font-bold text-sage-green mb-6">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-sage-700 mb-6">
               Quick Actions
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -151,7 +145,7 @@ export default function PortalPage() {
               <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-sage-green to-sage-700 flex items-center justify-center shadow-lg">
                 <TrendingUp className="w-6 h-6 text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-sage-green">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-sage-700">
                 Your Journey
               </h2>
             </div>
