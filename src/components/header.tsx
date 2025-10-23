@@ -41,6 +41,7 @@ export default function Header() {
             {[
               { href: '/meals', label: 'Meals' },
               { href: '/packages', label: 'Packages' },
+              { href: '/farm-partners', label: 'Farm Partners' },
               { href: '/about', label: 'About' },
               { href: '/contact', label: 'Contact' },
             ].map((link) => (
@@ -111,6 +112,7 @@ export default function Header() {
               {[
                 { href: '/meals', label: 'Meals' },
                 { href: '/packages', label: 'Packages' },
+                { href: '/farm-partners', label: 'Farm Partners' },
                 { href: '/about', label: 'About' },
                 { href: '/contact', label: 'Contact' },
               ].map((link, index) => (

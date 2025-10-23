@@ -84,6 +84,22 @@ export default function MobileNav() {
             {/* Menu Items */}
             <div className="px-4 py-2">
               <Link
+                href="/farm-partners"
+                onClick={() => setShowMenu(false)}
+                className="flex items-center gap-4 px-4 py-4 rounded-xl hover:bg-sage-green/10 transition-colors"
+              >
+                <div className="w-10 h-10 bg-sage-green/20 rounded-full flex items-center justify-center">
+                  <svg className="w-5 h-5 text-sage-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="font-semibold text-charcoal">Farm Partners</p>
+                  <p className="text-sm text-gray-600">Meet our farmers</p>
+                </div>
+              </Link>
+
+              <Link
                 href="/contact"
                 onClick={() => setShowMenu(false)}
                 className="flex items-center gap-4 px-4 py-4 rounded-xl hover:bg-sage-green/10 transition-colors"
@@ -98,26 +114,6 @@ export default function MobileNav() {
                   <p className="text-sm text-gray-600">Get in touch</p>
                 </div>
               </Link>
-
-              {/* Placeholder for future pages */}
-              <div className="mt-4 px-4 py-2">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-                  Coming Soon
-                </p>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-4 px-4 py-3 rounded-xl bg-gray-50 opacity-50">
-                    <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                      <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-semibold text-gray-400">Farm Partners</p>
-                      <p className="text-sm text-gray-400">Meet our farmers</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Bottom padding for safe area */}

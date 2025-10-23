@@ -1,7 +1,33 @@
 {
   "permissions": {
     "allow": [
-      "Bash(del vercel.json)"
+      "Bash(del vercel.json)",
+      "Bash(git add src/app/about/page.tsx src/app/auth/login/page.tsx src/app/auth/signup/page.tsx src/app/checkout/page.tsx src/app/checkout/success/page.tsx src/app/membership/page.tsx src/app/page.tsx src/app/portal/meals/page.tsx src/app/portal/rewards/page.tsx src/components/quantity-selector.tsx src/lib/rewards/reward-tracker.ts)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nFix quantity selector button scaling and ESLint build errors\n\n- Fix + button scaling in quantity selector to match - button by using explicit w-10 h-10 dimensions\n- Add flex-shrink-0 to both icons to prevent shrinking\n- Fix SSR error in signup page by moving window.location access to useEffect\n- Replace 42 unescaped quotes/apostrophes with HTML entities across 8 files\n- Replace 15 TypeScript any types with proper types (Record<string, unknown> and interfaces)\n- Add 4 new TypeScript interfaces for better type safety in rewards system\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git add src/components/quantity-selector.tsx src/components/TitleText.tsx src/app/page.tsx src/app/globals.css)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nFix quantity selector buttons and title font styling\n\n- Increase quantity selector button size from w-10 h-10 to w-12 h-12 for better visibility\n- Increase icon size from w-4 h-4 to w-5 h-5 with strokeWidth={2} for better consistency\n- Add flex-shrink-0 to both buttons to prevent shrinking\n- Update TitleText component to apply Parisienne font to ALL uppercase letters, not just first\n- Make uppercase letters 1.15em larger in TitleText component\n- Replace all font-cedarville classes with TitleText component on home page (6 titles)\n- Update globals.css to remove first-letter styling and document TitleText usage\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push origin master)",
+      "Bash(git add src/app/page.tsx)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nImprove disabled state styling for Add to Cart button\n\n- Change disabled button from opacity-50 green to solid gray gradient\n- Use from-gray-300 to-gray-400 for better visibility when disabled\n- Reduce shadow to shadow-md when disabled for more subtle appearance\n- Maintain cursor-not-allowed and no scale on hover when disabled\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git add src/components/TitleText.tsx)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nFix word spacing in TitleText component\n\n- Change display from inline-block to inline to fix spacing issues\n- Replace regular spaces with non-breaking spaces (\\u00A0) to preserve proper width\n- Prevents spaces from collapsing or creating awkward gaps between words\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git add src/app/page.tsx src/components/TitleText.tsx)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nFix Add button horizontal stretching and word spacing in titles\n\nButton fixes:\n- Remove flex-1 wrapper around QuantitySelector that was causing stretching\n- Add flex-none, shrink-0, grow-0 to button for triple flex protection\n- Set exact dimensions with w-[80px] h-[40px]\n- Add inline style with flex: ''0 0 auto'' and min/max width constraints\n- Add justify-start to parent container\n- Button now stays compact at 80px width\n\nTitle font fixes:\n- Fix word spacing in TitleText component\n- Change display from inline-block to inline\n- Replace regular spaces with non-breaking spaces (\\u00A0)\n- Prevents spaces from collapsing between words\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git mv src/app/portal src/app/members)",
+      "Bash(git add src/components/header.tsx src/components/MobileNav.tsx)",
+      "Bash(npm run build:*)",
+      "Bash(if exist .next rmdir /s /q .next)",
+      "Bash(npx next lint:*)",
+      "Bash(npx tsc:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd phone validation system with $10 reward\n\nBackend (phone-validation.ts):\n- Generate and send 6-digit verification codes\n- Validate codes with 15-minute expiration\n- Track phone numbers to prevent duplicate reward claims\n- Award one-time $10 reward per validated phone number\n- Normalize phone numbers to E.164 format\n\nFrontend (signup page):\n- Add phone validation modal after signup\n- Show verification code input (6 digits)\n- Display success state with reward amount\n- Allow users to skip validation\n- Include promotional text about $10 reward\n\nTypes:\n- Add PhoneValidation interface\n- Extend User interface with phone validation fields\n- Update username max length from 20 to 26 characters\n\nNote: SMS integration placeholder (console.log) - ready for Twilio/AWS SNS\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(npm run dev:*)",
+      "Bash(taskkill:*)",
+      "Bash(powershell -Command \"Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force\")",
+      "Bash(powershell -Command \"Get-Process | Where-Object {$_ProcessName -eq ''node''} | Select-Object Id, ProcessName, Path\")",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(del \"c:\\Users\\shane\\OneDrive\\Documents\\GitHub\\eatmothership\\src\\app\\auth\\signup\\page.jsx\")"
     ],
     "deny": [],
     "ask": []

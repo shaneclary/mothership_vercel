@@ -4,8 +4,11 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAppStore } from '@/lib/store'
 import Link from 'next/link'
-import { ArrowLeft, User, Mail, Phone, Lock, Sparkles, Smartphone, MessageSquare, Shield, Check } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowLeft, User, Mail, Phone, Lock, Sparkles, Smartphone, MessageSquare, Shield, Check, Star, Crown } from 'lucide-react'
 import { sendVerificationCode, verifyPhoneCode, claimValidationReward } from '@/lib/phone-validation'
+
+type MembershipTier = 'basic' | 'premium' | 'vip'
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -20,6 +23,7 @@ export default function SignupPage() {
   const [agreedToTerms, setAgreedToTerms] = useState(false)
   const [enable2FA, setEnable2FA] = useState(false)
   const [twoFAMethod, setTwoFAMethod] = useState<'app' | 'sms'>('app')
+  const [membershipTier, setMembershipTier] = useState<MembershipTier>('basic')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [returnUrl, setReturnUrl] = useState<string | null>(null)
@@ -89,8 +93,8 @@ export default function SignupPage() {
     if (formData.phone.trim()) {
       await initiatePhoneValidation(mockUserId, formData.phone)
     } else {
-      // Otherwise redirect immediately
-      router.push(returnUrl || '/')
+      // Otherwise redirect immediately based on membership tier
+      router.push(getRedirectUrl())
     }
   }
 
@@ -141,14 +145,26 @@ export default function SignupPage() {
     setPhoneValidationLoading(false)
   }
 
+  const getRedirectUrl = () => {
+    if (returnUrl) return returnUrl
+
+    // If premium or VIP, redirect to payment/checkout
+    if (membershipTier === 'premium' || membershipTier === 'vip') {
+      return `/checkout?membership=${membershipTier}`
+    }
+
+    // For basic (free), go straight to welcome page
+    return '/welcome'
+  }
+
   const handleSkipValidation = () => {
     setShowPhoneValidation(false)
-    router.push(returnUrl || '/')
+    router.push(getRedirectUrl())
   }
 
   const handleContinueAfterValidation = () => {
     setShowPhoneValidation(false)
-    router.push(returnUrl || '/')
+    router.push(getRedirectUrl())
   }
 
   return (
@@ -168,8 +184,14 @@ export default function SignupPage() {
         {/* Main Signup Card */}
         <div className="backdrop-blur-2xl bg-white/90 rounded-3xl p-8 md:p-10 shadow-2xl border border-white/20">
           <div className="text-center mb-8">
-            <div className="inline-block p-4 rounded-full bg-gradient-to-br from-sage-green to-sage-700 mb-4">
-              <Sparkles className="w-8 h-8 text-white" />
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-sage-green to-sage-700 mb-4 p-2">
+              <Image
+                src="/logo/monogram-white.png"
+                alt="Mothership"
+                width={48}
+                height={48}
+                className="object-contain w-full h-full"
+              />
             </div>
             <h1 className="text-4xl font-bold text-sage-green mb-2 font-cedarville">
               Join Mothership
@@ -270,6 +292,94 @@ export default function SignupPage() {
                 <Sparkles className="w-4 h-4" />
                 Get $10 in rewards when you validate your phone number!
               </p>
+            </div>
+
+            {/* Membership Tier Selection */}
+            <div className="backdrop-blur-xl bg-gradient-to-r from-sage-green/5 to-sage-700/5 rounded-2xl p-6 border border-sage-200">
+              <h3 className="text-lg font-semibold text-charcoal mb-4 flex items-center gap-2">
+                <Crown className="w-5 h-5 text-sage-green" />
+                Choose Your Membership Level
+              </h3>
+              <div className="space-y-3">
+                {/* Basic - Free */}
+                <label className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                  membershipTier === 'basic'
+                    ? 'border-sage-green bg-sage-green/10'
+                    : 'border-gray-200 hover:border-sage-300 bg-white'
+                }`}>
+                  <input
+                    type="radio"
+                    name="membershipTier"
+                    value="basic"
+                    checked={membershipTier === 'basic'}
+                    onChange={(e) => setMembershipTier(e.target.value as MembershipTier)}
+                    className="mt-1 w-4 h-4 text-sage-green focus:ring-sage-green"
+                  />
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-sage-green" />
+                        <span className="font-semibold text-charcoal">Basic</span>
+                      </div>
+                      <span className="font-bold text-sage-green">FREE</span>
+                    </div>
+                    <p className="text-xs text-gray-600">Browse meals • Order individually • Newsletter access</p>
+                  </div>
+                </label>
+
+                {/* Premium */}
+                <label className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                  membershipTier === 'premium'
+                    ? 'border-sage-green bg-sage-green/10'
+                    : 'border-gray-200 hover:border-sage-300 bg-white'
+                }`}>
+                  <input
+                    type="radio"
+                    name="membershipTier"
+                    value="premium"
+                    checked={membershipTier === 'premium'}
+                    onChange={(e) => setMembershipTier(e.target.value as MembershipTier)}
+                    className="mt-1 w-4 h-4 text-sage-green focus:ring-sage-green"
+                  />
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-2">
+                        <Star className="w-4 h-4 text-sage-green" />
+                        <span className="font-semibold text-charcoal">Premium</span>
+                        <span className="text-xs bg-terracotta text-white px-2 py-0.5 rounded-full">Most Popular</span>
+                      </div>
+                      <span className="font-bold text-sage-green">$19.99<span className="text-xs text-gray-600">/mo</span></span>
+                    </div>
+                    <p className="text-xs text-gray-600">10% off all meals • Exclusive resources • Priority support</p>
+                  </div>
+                </label>
+
+                {/* VIP */}
+                <label className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                  membershipTier === 'vip'
+                    ? 'border-sage-green bg-sage-green/10'
+                    : 'border-gray-200 hover:border-sage-300 bg-white'
+                }`}>
+                  <input
+                    type="radio"
+                    name="membershipTier"
+                    value="vip"
+                    checked={membershipTier === 'vip'}
+                    onChange={(e) => setMembershipTier(e.target.value as MembershipTier)}
+                    className="mt-1 w-4 h-4 text-sage-green focus:ring-sage-green"
+                  />
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-2">
+                        <Crown className="w-4 h-4 text-amber-600" />
+                        <span className="font-semibold text-charcoal">VIP</span>
+                      </div>
+                      <span className="font-bold text-sage-green">$39.99<span className="text-xs text-gray-600">/mo</span></span>
+                    </div>
+                    <p className="text-xs text-gray-600">15% off all meals • 1-on-1 consultation • Exclusive VIP events</p>
+                  </div>
+                </label>
+              </div>
             </div>
 
             <div>

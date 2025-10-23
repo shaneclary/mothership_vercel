@@ -1,3 +1,5 @@
+'use client'
+
 import { PhoneValidation } from '@/types'
 
 /**

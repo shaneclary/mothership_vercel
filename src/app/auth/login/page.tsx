@@ -11,18 +11,85 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [touched, setTouched] = useState({ email: false, password: false })
   const { setUser, setIsAuthenticated } = useAppStore()
   const router = useRouter()
 
   const fillDemo = () => {
     setEmail('demo@mothership.com')
     setPassword('demo123')
+    setError('')
+    setEmailError('')
+    setPasswordError('')
+  }
+
+  const validateEmail = (value: string) => {
+    if (!value) {
+      return 'Email is required'
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(value)) {
+      return 'Please enter a valid email address'
+    }
+    return ''
+  }
+
+  const validatePassword = (value: string) => {
+    if (!value) {
+      return 'Password is required'
+    }
+    if (value.length < 6) {
+      return 'Password must be at least 6 characters'
+    }
+    return ''
+  }
+
+  const handleEmailBlur = () => {
+    setTouched(prev => ({ ...prev, email: true }))
+    setEmailError(validateEmail(email))
+  }
+
+  const handlePasswordBlur = () => {
+    setTouched(prev => ({ ...prev, password: true }))
+    setPasswordError(validatePassword(password))
+  }
+
+  const handleEmailChange = (value: string) => {
+    setEmail(value)
+    if (touched.email) {
+      setEmailError(validateEmail(value))
+    }
+  }
+
+  const handlePasswordChange = (value: string) => {
+    setPassword(value)
+    if (touched.password) {
+      setPasswordError(validatePassword(value))
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+
+    // Mark all fields as touched
+    setTouched({ email: true, password: true })
+
+    // Validate all fields
+    const emailErr = validateEmail(email)
+    const passwordErr = validatePassword(password)
+
+    setEmailError(emailErr)
+    setPasswordError(passwordErr)
+
+    // If any validation errors, don't submit
+    if (emailErr || passwordErr) {
+      return
+    }
+
     setLoading(true)
 
     // Mock login - in production would call API
@@ -48,7 +115,7 @@ export default function LoginPage() {
       setIsAuthenticated(true)
       router.push('/portal')
     } else {
-      setError('Invalid credentials')
+      setError('Invalid email or password. Please try again or use the demo account.')
     }
     setLoading(false)
   }
@@ -121,11 +188,20 @@ export default function LoginPage() {
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => handleEmailChange(e.target.value)}
+                onBlur={handleEmailBlur}
                 placeholder="Enter your email"
-                required
-                className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-sage-green focus:border-transparent transition-all bg-white shadow-sm text-lg"
+                className={`w-full px-5 py-4 rounded-2xl border-2 transition-all bg-white shadow-sm text-lg focus:outline-none focus:ring-2 ${
+                  emailError
+                    ? 'border-red-300 focus:ring-red-200 focus:border-red-400'
+                    : 'border-gray-200 focus:ring-sage-green focus:border-transparent'
+                }`}
               />
+              {emailError && (
+                <p className="mt-2 text-sm text-red-600 flex items-center gap-1 animate-fade-in-scale">
+                  <span className="text-red-500">✕</span> {emailError}
+                </p>
+              )}
             </div>
 
             <div>
@@ -136,11 +212,20 @@ export default function LoginPage() {
               <input
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => handlePasswordChange(e.target.value)}
+                onBlur={handlePasswordBlur}
                 placeholder="Enter your password"
-                required
-                className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-sage-green focus:border-transparent transition-all bg-white shadow-sm text-lg"
+                className={`w-full px-5 py-4 rounded-2xl border-2 transition-all bg-white shadow-sm text-lg focus:outline-none focus:ring-2 ${
+                  passwordError
+                    ? 'border-red-300 focus:ring-red-200 focus:border-red-400'
+                    : 'border-gray-200 focus:ring-sage-green focus:border-transparent'
+                }`}
               />
+              {passwordError && (
+                <p className="mt-2 text-sm text-red-600 flex items-center gap-1 animate-fade-in-scale">
+                  <span className="text-red-500">✕</span> {passwordError}
+                </p>
+              )}
             </div>
 
             <div className="text-right">

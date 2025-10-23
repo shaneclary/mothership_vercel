@@ -48,6 +48,7 @@ export default function Footer() {
               {[
                 { href: '/meals', label: 'Shop Meals' },
                 { href: '/packages', label: 'Meal Packages' },
+                { href: '/membership', label: 'Join' },
                 { href: '/about', label: 'Our Story' },
                 { href: '/contact', label: 'Contact Us' },
               ].map((link) => (
