@@ -44,12 +44,12 @@ export default function PortalNav() {
       <nav className="hidden md:block backdrop-blur-xl bg-white/90 border-r border-sage-green/10 w-64 min-h-screen p-6 shadow-xl">
         <div className="mb-8">
           <Link href="/" className="flex items-center group">
-            <div className="h-10 w-auto relative transition-transform duration-300 group-hover:scale-105">
+            <div className="h-12 w-12 relative transition-transform duration-300 group-hover:scale-105">
               <Image
-                src="/logo/brandmark.png"
+                src="/logo/heart_ring_1.png"
                 alt="Mothership"
-                width={160}
-                height={40}
+                width={48}
+                height={48}
                 className="object-contain"
               />
             </div>
