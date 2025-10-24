@@ -1,30 +1,12 @@
-import type { Metadata } from 'next'
-import { Inter, Parisienne, Cormorant_Garamond, Raleway, Poppins } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
+import { Raleway, Poppins } from 'next/font/google'
 import './globals.css'
 import { CartProvider } from '@/context/CartContext'
 import { AuthProvider } from '@/context/AuthContext'
 import MobileNav from '@/components/MobileNav'
+import { parisienne, cormorant, inter } from './fonts'
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-})
-
-// Mothership Typography - Official Specifications
-const parisienne = Parisienne({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-parisienne',
-  display: 'swap',
-})
-
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-cormorant',
-  display: 'swap',
-})
-
+// Additional fonts for specific use cases
 const raleway = Raleway({
   subsets: ['latin'],
   weight: ['300', '400'],
@@ -90,14 +72,23 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover', // ✅ Enables iOS safe-area support
+}
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${parisienne.variable} ${cormorant.variable} ${raleway.variable} ${poppins.variable}`}>
-      <body className={`${inter.className} antialiased`}>
+    <html
+      lang="en"
+      className={`${parisienne.variable} ${cormorant.variable} ${inter.variable} ${raleway.variable} ${poppins.variable} h-full bg-ivory text-slate-800 antialiased`}
+    >
+      <body className="min-h-full">
         <AuthProvider>
           <CartProvider>
             {children}

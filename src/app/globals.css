@@ -13,7 +13,9 @@
   --color-sage-400: #A8B99C;
   --color-sage-500: #8FA089;
   --color-sage-600: #8A9B7E;
-  --color-sage-700: #7A8973;
+  --color-sage-700: #7B8C72;
+  --color-sage-900: #5F6F58;
+  --color-ivory: #F5F3EF;
   --color-cream: #F5F3EF;
   --color-blush: #F4E8E3;
   --color-charcoal: #3A3A3A;
@@ -159,6 +161,50 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Safe-area and layout utilities */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  /* Typography utilities */
+  .no-hyphens {
+    hyphens: none;
+    -webkit-hyphens: none;
+  }
+
+  .keep-words {
+    word-break: keep-all;
+    overflow-wrap: normal;
+  }
+
+  .no-wrap {
+    white-space: nowrap;
+  }
+
+  /* Layout utilities */
+  .clip-fix {
+    overflow: visible;
+  }
+
+  /* Badge utilities */
+  .badge-dot {
+    @apply absolute -top-1 -right-1 inline-flex items-center justify-center rounded-full text-[10px] leading-none font-semibold;
+    transform: translate(50%,-50%);
+  }
+
+  /* Color shortcuts */
+  .text-sage-900 {
+    color: var(--color-sage-900);
+  }
+
+  .text-sage-700 {
+    color: var(--color-sage-700);
+  }
+
+  .bg-ivory {
+    background: var(--color-ivory);
   }
 }
 

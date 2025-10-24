@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { ShoppingBag, User, Search, Menu, X } from 'lucide-react'
 import { useAppStore } from '@/lib/store'
+import LogoMonogram from './LogoMonogram'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -19,22 +19,13 @@ export default function Header() {
   }, [])
 
   return (
-    <header className="backdrop-blur-xl bg-white/80 border-b border-sage-green/10 sticky top-0 z-50 shadow-lg transition-all duration-300">
+    <header className="safe-area-top backdrop-blur-xl bg-white/80 border-b border-sage-green/10 sticky top-0 z-50 shadow-lg transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center justify-center group">
-            <div className="h-[72px] w-[72px] relative transform group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
-              <Image
-                src="/logo/mothership-logo.png"
-                alt="Mothership"
-                width={72}
-                height={72}
-                className="object-contain"
-                priority
-              />
-            </div>
-          </Link>
+        <div className="flex justify-between items-center h-16">
+          {/* Logo - using LogoMonogram component */}
+          <div className="flex-shrink-0">
+            <LogoMonogram />
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1">
